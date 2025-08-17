@@ -1,0 +1,18 @@
+# Ignorar a pasta de ambiente virtual (se estiver usando venv, por exemplo)
+venv/
+.env/
+
+# Ignorar arquivos de cache do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar arquivos de configuração do sistema (exemplo do macOS)
+.DS_Store
+
+# Ignorar arquivos do editor (exemplo do VS Code)
+.vscode/
+
+# Ignorar o arquivo de dependências do Python (caso você queira usar uma alternativa como poetry)
+Pipfile.lock
