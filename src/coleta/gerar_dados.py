@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 
 def gerar_dados(n=200):
     np.random.seed(42)
@@ -12,9 +13,18 @@ def gerar_dados(n=200):
 
     df = pd.DataFrame(dados)
     df["atividade_alta"] = (df["abelhas_ativas"] > 500).astype(int)  # 1 = alta atividade
+    df["atividade"] = df["atividade_alta"].map({1: "Alta", 0: "Baixa"})
+
     return df
 
 if __name__ == "__main__":
     df = gerar_dados()
-    df.to_csv("../../data/abelhas.csv", index=False)
-    print("✅ Dados simulados salvos em data/abelhas.csv")
+
+    # Caminho correto a partir da raiz do projeto
+    data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "data")
+    os.makedirs(data_dir, exist_ok=True)
+
+    caminho_csv = os.path.join(data_dir, "abelhas.csv")
+    df.to_csv(caminho_csv, index=False)
+
+    print(f"✅ Dados simulados salvos em {caminho_csv}")
