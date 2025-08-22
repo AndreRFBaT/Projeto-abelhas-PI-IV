@@ -1,6 +1,6 @@
-# Ignorar a pasta de ambiente virtual (se estiver usando venv, por exemplo)
+# Ignorar a pasta de ambiente virtual
 venv/
-venv/
+.venv/
 
 # Ignorar arquivos de cache do Python
 __pycache__/
@@ -16,3 +16,6 @@ __pycache__/
 
 # Ignorar o arquivo de dependências do Python (caso você queira usar uma alternativa como poetry)
 Pipfile.lock
+
+# Ignorar csv
+# *.csv
