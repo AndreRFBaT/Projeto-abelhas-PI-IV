@@ -2,13 +2,15 @@ import asyncio
 import httpx
 import random
 from datetime import datetime
-from app.db import SessionLocal
+from .db import SessionLocal
 
 INTERVAL = 5  # segundos
 
 async def simulate_data():
     # url = "http://localhost:8000/api/ingest"
-    API_URL = "http://127.0.0.1:8000/api/data/ingest"
+    # API_URL = "http://127.0.0.1:8000/api/data/ingest"
+    API_URL = "http://127.0.0.1:8001/api/data/ingest"
+
 
     while True:
         payload = {
