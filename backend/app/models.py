@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, Float, String, DateTime, func
 from .db import Base
 
 class BeeRecord(Base):
-    __tablename__ = "abelhas"
+    __tablename__ = "abelhas_data"
 
     id = Column(Integer, primary_key=True, index=True)
     timestamp = Column(DateTime(timezone=True), server_default=func.now(), index=True)
