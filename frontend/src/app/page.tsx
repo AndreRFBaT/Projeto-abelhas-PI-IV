@@ -81,33 +81,55 @@ export default function Page() {
     }
   }, [stats.alertaAtivoTotal, audioAllowed]);
 
-  const chartData = useMemo(() => {
-    return [...data].reverse().map(d => ({
-      t: new Date(d.timestamp).toLocaleTimeString(),
-      temperatura: d.temperatura,
-      umidade: d.umidade,
-      poluicao: d.poluicao,
-      atividade: d.atividade,
-      abelhas_ativas: d.abelhas_ativas,
-      ruido: d.ruido_db,
-      status_ruido: d.status_ruido,
-    }));
-  }, [data]);
+  const chartData = useMemo(() => [...data].reverse().map(d => ({
+    t: new Date(d.timestamp).toLocaleTimeString(),
+    temperatura: d.temperatura,
+    umidade: d.umidade,
+    poluicao: d.poluicao,
+    atividade: d.atividade,
+    abelhas_ativas: d.abelhas_ativas,
+    ruido: d.ruido_db,
+    status_ruido: d.status_ruido,
+  })), [data]);
 
-  const [form, setForm] = useState({ temperatura: 25, umidade: 60, poluicao: 30 });
-  const [pred, setPred] = useState<{ label?: string; proba?: number }>({});
+  // ---------------- Predição automática ----------------
+  const [pred, setPred] = useState<{ label?: string; proba_alta?: number }>({});
 
-  const onPredict = async () => {
-    const r = await fetch(`${BACKEND}/api/data/predicao`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form)
-    });
-    const p = await r.json();
-    setPred({ label: p.predicted_label, proba: p.proba_alta });
-  };
+  useEffect(() => {
+    if (data.length === 0) return;
 
-  // distribuição da atividade com cores dinâmicas
+    const latest = data[data.length - 1];
+    const payload = {
+      temperatura: latest.temperatura,
+      umidade: latest.umidade,
+      poluicao: latest.poluicao,
+      ruido_db: latest.ruido_db,
+    };
+
+    const fetchPrediction = async () => {
+      try {
+        const res = await fetch(`${BACKEND}/api/predicao`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) return;
+        const p = await res.json();
+        setPred({ label: p.predicted_label, proba_alta: p.proba_alta });
+      } catch (err) {
+        console.error("Erro ao fazer predição:", err);
+      }
+    };
+
+    fetchPrediction();
+  }, [data]); // roda toda vez que novos dados chegam
+
+  const predChartData = useMemo(() => [
+    { name: "Alta", value: pred.proba_alta ?? 0 },
+    { name: "Baixa", value: pred.proba_alta !== undefined ? 1 - pred.proba_alta : 1 },
+  ], [pred]);
+
+  // ---------------- Distribuição ----------------
   const activityDistribution = [
     {
       name: "Altas",
@@ -174,17 +196,9 @@ export default function Page() {
           <div className="text-3xl font-semibold">{stats.ruidoRecente.toFixed(1)} dB</div>
           <div className="text-sm">{stats.statusRuido}</div>
         </div>
-
-        {/* Card de Média Recente */}
-        <div className={`rounded-2xl shadow p-4 transition-colors ${stats.alertaAtivo ? "bg-red-500 text-white" : ""}`}>
-          <div className={`text-sm flex items-center gap-2 ${stats.alertaAtivo ? 'text-white' : 'text-gray-500'}`}>
-            Média Recente (Últimas {RECENT_COUNT}) {stats.alertaAtivo && <span>⚠️</span>}
-          </div>
-          <div className="text-3xl font-semibold">{stats.mediaRecente.toFixed(1)}</div>
-        </div>
       </div>
 
-      {/* gráficos */}
+      {/* Gráficos principais */}
       <div className="rounded-2xl shadow p-4">
         <h2 className="text-xl font-semibold mb-2">Temperatura, Umidade, Poluição e Ruído</h2>
         <div className="w-full h-80">
@@ -220,8 +234,9 @@ export default function Page() {
         </div>
       </div>
 
-      {/* distribuição + predição */}
+      {/* Distribuição + Predição */}
       <div className="grid md:grid-cols-2 gap-4">
+        {/* Distribuição da atividade */}
         <div className="rounded-2xl shadow p-4">
           <h2 className="text-xl font-semibold mb-3">Distribuição da Atividade</h2>
           <div className="w-full h-64">
@@ -240,26 +255,27 @@ export default function Page() {
           </div>
         </div>
 
+        {/* Predição */}
         <div className="rounded-2xl shadow p-4">
-          <h2 className="text-xl font-semibold mb-3">Predição</h2>
-          <div className="space-y-3">
-            {(["temperatura", "umidade", "poluicao"] as const).map(k => (
-              <div key={k} className="flex items-center gap-3">
-                <label className="w-32 capitalize">{k}</label>
-                <input
-                  type="number"
-                  value={(form as any)[k]}
-                  onChange={e => setForm({ ...form, [k]: Number(e.target.value) })}
-                  className="border rounded-xl px-3 py-2 w-full"
-                />
-              </div>
-            ))}
-            <button onClick={onPredict} className="px-4 py-2 rounded-xl bg-black text-white">Prever</button>
-            {pred.label && (
-              <div className="text-lg">
-                Resultado: <b>{pred.label}</b> {typeof pred.proba === 'number' && `(p≈${(pred.proba * 100).toFixed(1)}%)`}
-              </div>
-            )}
+          <h2 className="text-xl font-semibold mb-3">Predição de Atividade</h2>
+
+          {pred.label && (
+            <div className="mb-4 text-lg">
+              Resultado: <b>{pred.label}</b> {typeof pred.proba_alta === 'number' && `(p≈${(pred.proba_alta * 100).toFixed(1)}%)`}
+            </div>
+          )}
+
+          {/* Gráfico da predição */}
+          <div className="w-full h-48">
+            <ResponsiveContainer>
+              <BarChart data={predChartData}>
+                <XAxis dataKey="name" />
+                <YAxis domain={[0, 1]} 
+                        tickFormatter={v => `${(Number(v) * 100).toFixed(0)}%`} />
+                <Tooltip formatter={v => `${(Number(v) * 100).toFixed(1)}%`} />
+                <Bar dataKey="value" fill="#f87171" />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </div>
