@@ -8,7 +8,7 @@ export async function GET() {
     const dbPath = path.join(process.cwd(), "data.db"); // path para o seu data.db
     const db = new Database(dbPath, { readonly: true });
 
-    const rows = db.prepare("SELECT * FROM abelhas_data ORDER BY timestamp DESC LIMIT 300").all();
+    const rows = db.prepare("SELECT * FROM abelhas_data ORDER BY timestamp DESC LIMIT 1000").all();
     db.close();
 
     return NextResponse.json(rows);
