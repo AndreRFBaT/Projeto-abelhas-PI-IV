@@ -7,6 +7,7 @@ class BeeRecordCreate(BaseModel):
     umidade: float
     poluicao: float
     abelhas_ativas: int
+    ruido_db: Optional[float] = 50
     # timestamp opcional (se não vier, servidor usa now)
     timestamp: Optional[datetime] = None
 
@@ -17,6 +18,7 @@ class BeeRecordRead(BaseModel):
     umidade: float
     poluicao: float
     abelhas_ativas: int
+    ruido_db: float
     atividade_alta: int
     atividade: str
 
@@ -27,6 +29,7 @@ class PredictionRequest(BaseModel):
     temperatura: float
     umidade: float
     poluicao: float
+    ruido_db: Optional[float] = 50
 
 class PredictionResponse(BaseModel):
     predicted_label: str
@@ -35,8 +38,12 @@ class PredictionResponse(BaseModel):
 
 class TrainMetrics(BaseModel):
     accuracy: float
+    f1_score: Optional[float] = None
+    auc: Optional[float] = None
     confusion_matrix: List[List[int]]
     classification_report: Dict[str, Dict[str, float]]
+    cross_val_mean: Optional[float] = None
+    feature_importance: Optional[Dict[str, float]] = None
 
 class StatsResponse(BaseModel):
     total: int
