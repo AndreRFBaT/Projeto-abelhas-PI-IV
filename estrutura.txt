@@ -1,15 +1,28 @@
 .
 ├── backend
 │   ├── app
+│   │   ├── api
+│   │   ├── db.py
 │   │   ├── main.py
 │   │   ├── ml.py
 │   │   ├── models.py
+│   │   ├── __pycache__
+│   │   │   ├── db.cpython-312.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── main.cpython-312.pyc
+│   │   │   ├── ml.cpython-312.pyc
+│   │   │   ├── models.cpython-312.pyc
+│   │   │   ├── schemas.cpython-312.pyc
+│   │   │   └── simulator.cpython-312.pyc
 │   │   ├── routers
 │   │   │   ├── data.py
-│   │   │   └── ml.py
+│   │   │   ├── __init__.py
+│   │   │   ├── ml.py
+│   │   │   └── __pycache__
 │   │   ├── schemas.py
 │   │   └── simulator.py
 │   ├── data.db
+│   ├── model.pkl
 │   └── requirements.txt
 ├── data
 │   └── abelhas.csv
@@ -35,6 +48,7 @@
 │   ├── README.md
 │   ├── src
 │   │   └── app
+│   │       ├── data
 │   │       ├── favicon.ico
 │   │       ├── globals.css
 │   │       ├── layout.tsx
@@ -45,16 +59,65 @@
 ├── README.md
 ├── silumator
 │   └── simulate.py
-└── src
-    ├── analise
-    │   ├── __init__.py
-    │   └── modelo.py
-    ├── coleta
-    │   ├── gerar_dados.py
-    │   └── stream_dados.py
-    ├── __init__.py
-    └── interface
-        ├── dashboard.py
-        └── __init__.py
+├── src
+│   ├── analise
+│   │   ├── __init__.py
+│   │   ├── modelo.py
+│   │   └── __pycache__
+│   │       ├── __init__.cpython-312.pyc
+│   │       └── modelo.cpython-312.pyc
+│   ├── coleta
+│   │   ├── gerar_dados.py
+│   │   └── stream_dados.py
+│   ├── __init__.py
+│   ├── interface
+│   │   ├── dashboard.py
+│   │   └── __init__.py
+│   └── __pycache__
+│       └── __init__.cpython-312.pyc
+└── venv
+    ├── bin
+    │   ├── activate
+    │   ├── activate.csh
+    │   ├── activate.fish
+    │   ├── Activate.ps1
+    │   ├── f2py
+    │   ├── fastapi
+    │   ├── fonttools
+    │   ├── httpx
+    │   ├── jsonschema
+    │   ├── normalizer
+    │   ├── numpy-config
+    │   ├── pip
+    │   ├── pip3
+    │   ├── pip3.12
+    │   ├── pyftmerge
+    │   ├── pyftsubset
+    │   ├── python -> python3
+    │   ├── python3 -> /usr/bin/python3
+    │   ├── python3.12 -> python3
+    │   ├── sqlformat
+    │   ├── streamlit
+    │   ├── streamlit.cmd
+    │   ├── ttx
+    │   ├── uvicorn
+    │   └── watchmedo
+    ├── etc
+    │   └── jupyter
+    │       └── nbconfig
+    ├── include
+    │   ├── python3.12
+    │   └── site
+    │       └── python3.12
+    ├── lib
+    │   └── python3.12
+    │       └── site-packages
+    ├── lib64 -> lib
+    ├── pyvenv.cfg
+    └── share
+        ├── jupyter
+        │   └── nbextensions
+        └── man
+            └── man1
 
-16 directories, 42 files
+40 directories, 81 files

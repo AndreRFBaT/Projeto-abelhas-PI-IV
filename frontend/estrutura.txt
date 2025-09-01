@@ -1,0 +1,27 @@
+.
+├── eslint.config.mjs
+├── estrutura.txt
+├── next.config.ts
+├── next-env.d.ts
+├── package.json
+├── package-lock.json
+├── postcss.config.mjs
+├── public
+│   ├── emergency-alarm.mp3
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── README.md
+├── src
+│   └── app
+│       ├── data
+│       │   └── dados.ts
+│       ├── favicon.ico
+│       ├── globals.css
+│       ├── layout.tsx
+│       └── page.tsx
+└── tsconfig.json
+
+5 directories, 20 files

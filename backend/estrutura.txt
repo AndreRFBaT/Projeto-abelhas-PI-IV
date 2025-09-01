@@ -1,0 +1,31 @@
+.
+├── app
+│   ├── api
+│   ├── db.py
+│   ├── main.py
+│   ├── ml.py
+│   ├── models.py
+│   ├── __pycache__
+│   │   ├── db.cpython-312.pyc
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── main.cpython-312.pyc
+│   │   ├── ml.cpython-312.pyc
+│   │   ├── models.cpython-312.pyc
+│   │   ├── schemas.cpython-312.pyc
+│   │   └── simulator.cpython-312.pyc
+│   ├── routers
+│   │   ├── data.py
+│   │   ├── __init__.py
+│   │   ├── ml.py
+│   │   └── __pycache__
+│   │       ├── data.cpython-312.pyc
+│   │       ├── __init__.cpython-312.pyc
+│   │       └── ml.cpython-312.pyc
+│   ├── schemas.py
+│   └── simulator.py
+├── data.db
+├── estrutura.txt
+├── model.pkl
+└── requirements.txt
+
+6 directories, 23 files
