@@ -12,3 +12,7 @@ class BeeRecord(Base):
     abelhas_ativas = Column(Integer, nullable=False)
     atividade_alta = Column(Integer, nullable=False)  # 0/1
     atividade = Column(String(10), nullable=False)
+
+     # novos campos para monitoramento de ruído
+    ruido_db = Column(Float, nullable=True)
+    status_ruido = Column(String(50), nullable=True)
