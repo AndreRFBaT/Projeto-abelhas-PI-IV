@@ -9,6 +9,8 @@ import random
 from typing import List
 from pydantic import BaseModel
 
+# router = APIRouter()
+
 
 router = APIRouter(prefix="/api/data", tags=["data"])
 
@@ -57,13 +59,22 @@ async def ingest_data(db: Session = Depends(get_db)):
     atividade = "alta" if abelhas_ativas > 500 else "baixa"
     atividade_alta = 1 if abelhas_ativas > 500 else 0
 
+    ruido_db = round(random.uniform(20, 120), 2)
+    status_ruido = "normal"
+    if ruido_db > 80:
+        status_ruido = "alerta: possível agitação!"
+    elif ruido_db > 60:
+        status_ruido = "moderado: atenção"
+
     novo_dado = BeeRecord(
         temperatura=temperatura,
         umidade=umidade,
         poluicao=poluicao,
         abelhas_ativas=abelhas_ativas,
         atividade=atividade,
-        atividade_alta=atividade_alta
+        atividade_alta=atividade_alta,
+        ruido_db=ruido_db,
+        status_ruido=status_ruido,
     )
 
     db.add(novo_dado)
@@ -71,3 +82,28 @@ async def ingest_data(db: Session = Depends(get_db)):
     db.refresh(novo_dado)
 
     return {"ok": True, "data": jsonable_encoder(novo_dado)}
+
+
+# app/routers/noise.py
+@router.get("/noise")
+def get_noise_level():
+    """
+    Simula o nível de ruído dentro da colmeia.
+    Retorna valores de 20 a 120 dB.
+    """
+    noise_level = random.randint(20, 120)  # em decibéis
+    # timestamp = datetime.datetime.now().isoformat()
+    timestamp = datetime.now().isoformat()
+    status = "normal"
+
+    if noise_level > 80:
+        status = "alerta: possível agitação!"
+    elif noise_level > 60:
+        status = "moderado: atenção"
+
+    return {
+        "timestamp": timestamp,
+        "noise_db": noise_level,
+        "status": status
+    }
+
