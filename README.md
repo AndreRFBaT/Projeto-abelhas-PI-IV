@@ -58,7 +58,7 @@ A solução integra **backend (FastAPI)**, **frontend (Next.js)** e **banco de d
 │   ├── app
 │   │   ├── analize_model.py
 │   │   ├── api
-│   │   ├── db.py                             # define as conexões do banco de dados
+│   │   ├── db.py                             # Define as conexões do banco de dados
 │   │   ├── main.py                           # Inicializa o FastAPI do projeto 'Monitoramento de abelhas IoT+ML'
 │   │   ├── model_manager.py                  # Gerenciador do modelo de machine learning
 │   │   ├── models.py                         # Módulo que define a tabela 'abelhas_data'
