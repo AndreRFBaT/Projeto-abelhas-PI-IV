@@ -1,14 +1,47 @@
+"""
+main.py
+=======
+
+Initializes the FastAPI application for the Abelhas IoT+ML project.
+Sets up database tables, configures CORS, includes API routers, and starts a background data simulator on startup.
+
+Main Components
+---------------
+
+- Database Initialization: Creates all tables using SQLAlchemy's Base.metadata.create_all.
+- FastAPI App Initialization: Sets the app title to "API Abelhas IoT+ML".
+- CORS Middleware: Allows cross-origin requests from specified frontend origins (development only).
+- Routers: Includes routers for data and machine learning endpoints.
+- Root Endpoint: GET / returns a simple health check JSON.
+- Startup Event: Runs the data simulator in the background when the app starts.
+
+Usage
+-----
+
+Run with Uvicorn for development:
+    `uvicorn app.main:app --reload`
+    or
+    `uvicorn app.main:app --reload --port 8001`
+
+The API will be available at / and other endpoints defined in the routers.
+
+Dependencies
+------------
+
+FastAPI, SQLAlchemy, asyncio, app.db, app.routers, app.simulator
+"""
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .db import Base, engine
 from .routers import data as data_router
-from .routers import ml as ml_router
+from .routers import model_manager_routers as ml_router
 from .routers import data
 # Import do simulador
 import asyncio
 from .simulator import simulate_data
-from .routers import ml as ml_router
+from .routers import model_manager_routers as ml_router
+from app.routers import data, model_manager_routers
 
 # Criação das tabelas
 Base.metadata.create_all(bind=engine)
@@ -37,6 +70,8 @@ app.add_middleware(
 # Routers
 app.include_router(data.router)
 app.include_router(ml_router.router)
+app.include_router(model_manager_routers.router)
+
 
 # Root
 @app.get("/")
