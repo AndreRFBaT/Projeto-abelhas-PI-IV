@@ -1,0 +1,55 @@
+.
+├── backend
+│   ├── app
+│   │   ├── analize_model.py
+│   │   ├── api
+│   │   ├── db.py
+│   │   ├── main.py
+│   │   ├── model_manager.py
+│   │   ├── models.py
+│   │   ├── routers
+│   │   │   ├── data.py
+│   │   │   ├── __init__.py
+│   │   │   └── model_manager_routers.py
+│   │   ├── schemas.py
+│   │   └── simulator.py
+│   ├── data.db
+│   ├── estrutura.txt
+│   └── model.pkl
+├── data
+│   └── abelhas.csv
+├── estrutura.txt
+├── frontend
+│   ├── eslint.config.mjs
+│   ├── next.config.ts
+│   ├── next-env.d.ts
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── postcss.config.mjs
+│   ├── README.md
+│   ├── src
+│   │   └── app
+│   │       ├── data
+│   │       ├── favicon.ico
+│   │       ├── globals.css
+│   │       ├── layout.tsx
+│   │       └── page.tsx
+│   └── tsconfig.json
+├── README.md
+├── requirements.txt
+├── silumator
+│   └── simulate.py
+├── src
+│   ├── analise
+│   │   ├── __init__.py
+│   │   └── modelo.py
+│   ├── coleta
+│   │   ├── gerar_dados.py
+│   │   └── stream_dados.py
+│   ├── __init__.py
+│   └── interface
+│       ├── dashboard.py
+│       └── __init__.py
+└── structure.txt
+
+15 directories, 38 files
