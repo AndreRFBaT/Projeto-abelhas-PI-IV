@@ -12,11 +12,11 @@ A solução integra **backend (FastAPI)**, **frontend (Next.js)** e **banco de d
 
 ### Captura de dados de temperatura, umidada, ruido e poluição:
 
-<video controls src="images_and_videos/Gravação de tela de 2025-09-13 09-39-53.mp4" title="Title"></video>
+![alt text](images_and_videos/home.gif)
 
 ### Atividade das abelhas:
 
-<video controls src="images_and_videos/Gravação de tela de 2025-09-13 09-43-10.mp4" title="Title"></video>
+![<video controls src="images_and_videos/Gravação de tela de 2025-09-13 09-43-10.mp4" title="Title"></video>](images_and_videos/atividade_abelhas.gif)
 
 ----
 
