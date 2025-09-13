@@ -8,6 +8,13 @@ A solução integra **backend (FastAPI)**, **frontend (Next.js)** e **banco de d
 ---
 <br>
 
+## Execução e dados apresentados
+
+### Captura de dados de temperatura, umidada, ruido e poluição:
+<video controls src="Gravação de tela de 2025-09-13 09-39-53.mp4" title="Title"></video>
+
+### Atividade das abelhas:
+<video controls src="Gravação de tela de 2025-09-13 09-43-10.mp4" title="Title"></video>
 ## 📖 Funcionalidades
 
 - 📡 Coleta de dados de sensores simulados (temperatura, umidade, poluição, atividade das abelhas).
@@ -220,7 +227,7 @@ tree -L 4 -I "node_modules|__pycache__|.git|venv|docs" > structure.txt
 
 ## Comandos para dev:
 
-### Gerar `equirements.txt` para cada dependência instalada:
+### Gerar `requirements.txt` para cada dependência instalada:
 
 ```bash
 pip freeze > requirements.txt
