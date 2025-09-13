@@ -1,9 +1,40 @@
+"""
+data.py
+=======
+
+Defines FastAPI routes for handling bee sensor data, model predictions, training, statistics, and noise simulation.
+Interacts with the database and the model manager to provide API endpoints for the frontend.
+
+Main Components
+---------------
+
+- API Router: Prefix /api/data, tag 'data'.
+- Endpoints:
+    - POST /predicao: Predicts bee activity using the trained model and input features.
+    - POST /train: Trains the machine learning model with current database data.
+    - GET /dados: Returns a list of bee sensor records from the database.
+    - GET /stats: Returns statistics about bee activity (total, high, low).
+    - POST /ingest: Simulates and ingests a new bee sensor record into the database.
+    - GET /noise: Simulates and returns the current noise level in the hive.
+- Models:
+    - PredInput: Pydantic model for prediction input (temperature, humidity, pollution).
+
+Usage
+-----
+
+Import and include this router in your FastAPI app to expose bee data endpoints.
+
+Dependencies
+------------
+
+FastAPI, SQLAlchemy, random, datetime, pydantic, app.db, app.models, app.model_manager
+"""
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from fastapi.encoders import jsonable_encoder
 from ..db import get_db
 from ..models import BeeRecord
-from ..ml import model_manager
+from ..model_manager import model_manager
 from datetime import datetime
 import random
 from typing import List
